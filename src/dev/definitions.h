@@ -52,7 +52,7 @@ struct sp_SS *sp_moviles [MAX_ENEMS];
 	struct sp_SS *sp_cocos [MAX_ENEMS];
 #endif
 
-unsigned char enoffs;
+unsigned char enoffs, example_var;
 
 // Aux
 
