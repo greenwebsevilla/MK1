@@ -28,9 +28,15 @@ echo Convirtiendo enemigos/hotspots
 echo Importando GFX
 ..\utils\ts2bin.exe ..\gfx\font.png ..\gfx\work.png tileset.bin 7 >nul
 
-..\utils\sprcnv.exe ..\gfx\sprites.png assets\sprites.h > nul
+REM 16x16 Sprites
+REM ..\utils\sprcnv.exe ..\gfx\sprites.png assets\sprites.h > nul
+REM ..\utils\sprcnvbin.exe ..\gfx\sprites_extra.png sprites_extra.bin 1 > nul
 
-..\utils\sprcnvbin.exe ..\gfx\sprites_extra.png sprites_extra.bin 1 > nul
+REM or NEW 16x32 Sprites
+..\utils\sprcnv_32x.exe ..\gfx\sprites32.png assets\sprites.h > nul
+..\utils\sprcnvbin_32x.exe ..\gfx\sprites_extra_32.png sprites_extra.bin 1 > nul
+
+
 ..\utils\sprcnvbin8.exe ..\gfx\sprites_bullet.png sprites_bullet.bin 1 > nul
 
 ..\utils\png2scr.exe ..\gfx\title.png ..\gfx\title.scr > nul
@@ -46,7 +52,7 @@ if [%1]==[justassets] goto :end
 rem echo Running The Librarian
 rem ..\utils\librarian2.exe list=..\bin\list.txt index=assets\librarian.h bins_prefix=..\bin\ rams_prefix=..\bin\ > nul
 
-rem *** Música AY: Descomenta el player que vayas a usar (Wyz o Arkos) ***
+rem *** Musica AY: Descomenta el player que vayas a usar (Wyz o Arkos) ***
 
 rem echo Compilando musica 128k - Wyz Player
 rem cd ..\mus

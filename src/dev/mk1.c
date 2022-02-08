@@ -34,11 +34,11 @@
 */
 
 #ifdef MODE_128K
-	// Versión para 128K
+	// Versiï¿½n para 128K
 	#pragma output STACKPTR=23999
 	#define FREEPOOL 61697
 #else
-	// Versión para 48K
+	// Versiï¿½n para 48K
 	#pragma output STACKPTR=61936
 	#define FREEPOOL 61697
 #endif
@@ -59,7 +59,11 @@
 	#endif
 #endif
 
-#define NUMBLOCKS (((1 + MAX_ENEMS) * 10) + (MAX_PROJECTILES * 5))
+#ifdef MODE_32X
+	#define NUMBLOCKS (((1 + MAX_ENEMS) * 16) + (MAX_PROJECTILES * 5))
+#else
+	#define NUMBLOCKS (((1 + MAX_ENEMS) * 10) + (MAX_PROJECTILES * 5))
+#endif
 
 unsigned char AD_FREE [NUMBLOCKS * 15];
 

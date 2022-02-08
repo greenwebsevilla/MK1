@@ -58,6 +58,11 @@ void player_init (void) {
 			timer_on = 0;
 		#endif
 	#endif
+
+	#if defined(MODE_32X) && defined(BB_VARIABLE_TOP)
+		top_colision_point = TOP_COLLISION_NORMAL;
+	#endif	
+
 }
 
 void player_calc_bounding_box (void) {
@@ -85,7 +90,11 @@ void player_calc_bounding_box (void) {
 			srl a
 			ld  (_pty1), a
 			ld  a, (_gpy)
+#ifdef MODE_32X
+			add 31
+#else
 			add 15
+#endif
 			srl a
 			srl a
 			srl a
@@ -139,13 +148,27 @@ void player_calc_bounding_box (void) {
 			srl a
 			ld  (_ptx2), a
 			ld  a, (_gpy)
+#ifdef MODE_32X
+			add TOP_BG_COLLISION_NORMAL
+#endif
 			srl a
 			srl a
 			srl a
 			srl a
 			ld  (_pty1), a
 			ld  a, (_gpy)
+#ifdef MODE_32X
 			add 15
+			srl a
+			srl a
+			srl a
+			srl a
+			ld  (_pty3), a
+			ld  a, (_gpy)
+			add 31
+#else
+			add 15
+#endif
 			srl a
 			srl a
 			srl a
@@ -354,11 +377,19 @@ unsigned char player_move (void) {
 			#endif
 				
 			#if defined (BOUNDING_BOX_8_BOTTOM) || defined (BOUNDING_BOX_TINY_BOTTOM)
-				gpy = (pty2 - 1) << 4;
+				#ifdef MODE_32X
+					gpy = ((pty2 - 1) << 4) - 16;
+				#else
+					gpy = (pty2 - 1) << 4;
+				#endif
 			#elif defined (BOUNDING_BOX_8_CENTERED)				
 				gpy = ((pty2 - 1) << 4) + 4;
 			#else
-				gpy = (pty2 - 1) << 4;				
+				#ifdef MODE_32X
+					gpy = ((pty2 - 1) << 4) - 16;
+				#else
+					gpy = (pty2 - 1) << 4;
+				#endif			
 			#endif
 
 			p_y = gpy << 6;
@@ -377,10 +408,17 @@ unsigned char player_move (void) {
 	gpyy = gpy >> 4;
 
 	#ifndef PLAYER_GENITAL
-		cy1 = cy2 = (gpy + 16) >> 4;
+		#ifdef MODE_32X
+			cy1 = cy2 = (gpy + 32) >> 4;
+		#else
+			cy1 = cy2 = (gpy + 16) >> 4;
+		#endif
 		cx1 = ptx1; cx2 = ptx2;
 		cm_two_points ();
 		possee = ((at1 & 12) || (at2 & 12)) && (gpy & 15) < 8;
+		#if defined(MODE_32X) && defined(BB_VARIABLE_TOP)
+			if (possee) top_colision_point = TOP_COLLISION_NORMAL;
+		#endif	
 	#endif
 
 	// Jump
@@ -402,6 +440,9 @@ unsigned char player_move (void) {
 				if (p_saltando == 0) {
 					if (possee || p_gotten || hit_v) {
 						p_saltando = 1;
+					#if defined(MODE_32X) && defined(BB_VARIABLE_TOP)	
+						top_colision_point = TOP_COLLISION_JUMPING;
+					#endif	
 						p_cont_salto = 0;
 						#ifdef MODE_128K
 							PLAY_SOUND (SFX_JUMP);

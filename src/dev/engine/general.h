@@ -4,10 +4,20 @@
 // enengine.h
 
 unsigned char collide (void) {
-	#ifdef SMALL_COLLISION
-		return (gpx + 8 >= cx2 && gpx <= cx2 + 8 && gpy + 8 >= cy2 && gpy <= cy2 + 8);
+	#ifdef MODE_32X
+			#ifdef BB_VARIABLE_TOP
+			return ((gpx + BOX_WIDTH >= cx2) && (gpx <= cx2 + BOX_WIDTH) && (gpy + BOX_HEIGHT  >= cy2) && (gpy + top_colision_point <= cy2 + BOX_HEIGHT));
+			#else
+			return ((gpx + BOX_WIDTH >= cx2) && (gpx <= cx2 + BOX_WIDTH) && (gpy + BOX_HEIGHT  >= cy2) && (gpy <= cy2 + BOX_HEIGHT));
+			#endif
 	#else
-		return (gpx + 13 >= cx2 && gpx <= cx2 + 13 && gpy + 12 >= cy2 && gpy <= cy2 + 12);
+
+		#ifdef SMALL_COLLISION
+			return (gpx + 8 >= cx2 && gpx <= cx2 + 8 && gpy + 8 >= cy2 && gpy <= cy2 + 8);
+		#else
+			return (gpx + 13 >= cx2 && gpx <= cx2 + 13 && gpy + 12 >= cy2 && gpy <= cy2 + 12);
+		#endif
+
 	#endif
 }
 
@@ -83,6 +93,39 @@ unsigned char cm_two_points (void) {
 
 		._cm_two_points_at2_done
 			ld (_at2), a
+#ifdef MODE_32X		
+			ld  a, (_cx3)
+			cp  15
+			jr  nc, _cm_two_points_at3_reset
+
+			ld  a, (_cy3)
+			cp  10
+			jr  c, _cm_two_points_at3_do
+
+		._cm_two_points_at3_reset
+			xor a
+			jr  _cm_two_points_at3_done
+
+		._cm_two_points_at3_do
+			ld  a, (_cy3)
+			ld  b, a
+			sla a
+			sla a
+			sla a
+			sla a
+			sub b
+			ld  b, a
+			ld  a, (_cx3)
+			add b
+			ld  e, a
+			ld  d, 0
+			ld  hl, _map_attr
+			add hl, de
+			ld  a, (hl)
+
+		._cm_two_points_at3_done
+			ld (_at3), a
+#endif
 	#endasm
 }
 

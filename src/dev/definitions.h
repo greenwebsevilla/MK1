@@ -6,7 +6,7 @@
 	.fsClipStruct defb 0, 24, 0, 32
 #endasm	
 
-//void *joyfunc = sp_JoyKeyboard;		// Puntero a la función de manejo seleccionada.
+//void *joyfunc = sp_JoyKeyboard;		// Puntero a la funciï¿½n de manejo seleccionada.
 unsigned int (*joyfunc)(struct sp_UDK *) = sp_JoyKeyboard;
 
 const void *joyfuncs [] = {
@@ -175,8 +175,8 @@ unsigned char *_baddies_pointer;
 	signed char cocos_mx [MAX_ENEMS], cocos_my [MAX_ENEMS];
 #endif
 
-// atributos de la pantalla: Contiene información
-// sobre qué tipo de tile hay en cada casilla
+// atributos de la pantalla: Contiene informaciï¿½n
+// sobre quï¿½ tipo de tile hay en cada casilla
 unsigned char map_attr [150];
 unsigned char map_buff [150] @ FREEPOOL;
 // Breakable walls/etc
@@ -184,12 +184,12 @@ unsigned char map_buff [150] @ FREEPOOL;
 	unsigned char brk_buff [150] @ 23296+16;
 #endif
 
-// posición del objeto (hotspot). Para no objeto,
-// se colocan a 240,240, que está siempre fuera de pantalla.
+// posiciï¿½n del objeto (hotspot). Para no objeto,
+// se colocan a 240,240, que estï¿½ siempre fuera de pantalla.
 unsigned char hotspot_x;
 unsigned char hotspot_y;
 unsigned char hotspot_destroy;
-unsigned char orig_tile;	// Tile que había originalmente bajo el objeto
+unsigned char orig_tile;	// Tile que habï¿½a originalmente bajo el objeto
 
 // Flags para scripting
 #ifndef MAX_FLAGS
@@ -316,3 +316,16 @@ unsigned char *_gp_gen;
 #endif
 
 unsigned char isrc;
+
+
+#ifdef MODE_32X  
+	unsigned char cx3, cy3, at3, ptx3, pty3;
+
+#ifdef ONE_PUSH_ONE_JUMP
+	unsigned char jump_button_pressed;
+#endif
+
+#ifdef BB_VARIABLE_TOP
+	unsigned char top_colision_point;
+#endif
+#endif

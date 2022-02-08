@@ -14,6 +14,21 @@
 //#define VENG_SELECTOR 					// Very advanced!
 //#define USE_MAP_CUSTOM_DECODER
 
+
+// Section to use 32X mode (Sprites 16x32 size)
+#define MODE_32X							// Use 16x32 Sprites instead of classic 16x16
+	// Background collision
+#define TOP_BG_COLLISION_NORMAL		8		// Top point for Bounding box, reduce (in pixels) the height of the collision box for background. eg: 8 means a 24x16 box instead of 32x16
+	// Enemy collision
+#define BOX_WIDTH					13		// Bounding box width
+#define BOX_HEIGHT					28		// Bounding box height
+	// Bounding box extras
+#define BB_VARIABLE_TOP
+#define TOP_COLLISION_NORMAL		0		// Top points for bounding box, reduce (in pixels) the height of the collision box for enemies
+#define TOP_COLLISION_JUMPING		8		// Top points for bounding box when jumping (if you use a shorter sprite for jumping, adjust the box here)
+
+
+
 // In this section we define map dimensions, initial and authomatic ending conditions, etc.
 
 #define MAP_W						6		//
@@ -292,20 +307,20 @@
 // IV.1. Vertical movement. Only for side-view.
 
 #define PLAYER_MAX_VY_CAYENDO		512 		// Max falling speed 
-#define PLAYER_G					32		// Gravity acceleration 
+#define PLAYER_G					64		// Gravity acceleration 
 
-#define PLAYER_VY_INICIAL_SALTO		64 		// Initial junp velocity 
+#define PLAYER_VY_INICIAL_SALTO		128 		// Initial junp velocity 
 #define PLAYER_MAX_VY_SALTANDO		320 	// Max jump velocity 
-#define PLAYER_INCR_SALTO			64		// acceleration while JUMP is pressed 
+#define PLAYER_INCR_SALTO			128		// acceleration while JUMP is pressed 
 
 #define PLAYER_INCR_JETPAC			32		// Vertical jetpac gauge
 #define PLAYER_MAX_VY_JETPAC		256 	// Max vertical jetpac speed
 
 // IV.2. Horizontal (side view) or general (top view) movement.
 
-#define PLAYER_MAX_VX				192 	// Max velocity (192/64 = 3 p?xels/frame)
-#define PLAYER_AX					24		// Acceleration (24/64 = 0,375 p?xels/frame^2)
-#define PLAYER_RX					32		// Friction (32/64 = 0,5 p?xels/frame^2)
+#define PLAYER_MAX_VX				255 	// Max velocity (192/64 = 3 p?xels/frame)
+#define PLAYER_AX					48		// Acceleration (24/64 = 0,375 p?xels/frame^2)
+#define PLAYER_RX					64		// Friction (32/64 = 0,5 p?xels/frame^2)
 
 // ============================================================================
 // V. Tile behaviour

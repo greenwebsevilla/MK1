@@ -415,14 +415,32 @@ void enems_move (void) {
 
 						// Horizontal moving platforms
 						if (_en_mx) {
+				#ifdef MODE_32X
+							if (gpy + 33 >= _en_y && gpy + 24 <= _en_y) {
+								p_gotten = 1;
+								ptgmx = _en_mx << 6;
+								gpy = (_en_y - 32); p_y = gpy << 6;
+							}
+				#else
 							if (gpy + 17 >= _en_y && gpy + 8 <= _en_y) {
 								p_gotten = 1;
 								ptgmx = _en_mx << 6;
 								gpy = (_en_y - 16); p_y = gpy << 6;
 							}
+				#endif
 						}
 
 						// Vertical moving platforms
+				#ifdef MODE_32X
+						if (
+							(_en_my < 0 && gpy + 34 >= _en_y && gpy + 24 <= _en_y) ||
+							(_en_my > 0 && gpy + 33 + _en_my >= _en_y && gpy + 24 <= _en_y)
+						) {
+							p_gotten = 1;
+							ptgmy = _en_my << 6;
+							gpy = (_en_y - 32); p_y = gpy << 6;						
+						}
+				#else
 						if (
 							(_en_my < 0 && gpy + 18 >= _en_y && gpy + 8 <= _en_y) ||
 							(_en_my > 0 && gpy + 17 + _en_my >= _en_y && gpy + 8 <= _en_y)
@@ -431,6 +449,7 @@ void enems_move (void) {
 							ptgmy = _en_my << 6;
 							gpy = (_en_y - 16); p_y = gpy << 6;						
 						}
+				#endif
 
 					}
 				} else

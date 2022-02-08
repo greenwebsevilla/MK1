@@ -55,25 +55,41 @@ void main (void) {
 
 	// Sprite creation
 	#ifdef NO_MASKS
+		#ifdef MODE_32X
+		sp_player = sp_CreateSpr (NO_MASKS, 5, sprite_2_a);
+		#else
 		sp_player = sp_CreateSpr (NO_MASKS, 3, sprite_2_a);
+		#endif
 		sp_AddColSpr (sp_player, sprite_2_b);
 		sp_AddColSpr (sp_player, sprite_2_c);
 		p_current_frame = p_next_frame = sprite_2_a;
 		
 		for (gpit = 0; gpit < MAX_ENEMS; gpit ++) {
+			#ifdef MODE_32X
+			sp_moviles [gpit] = sp_CreateSpr(NO_MASKS, 5, sprite_9_a);
+			#else
 			sp_moviles [gpit] = sp_CreateSpr(NO_MASKS, 3, sprite_9_a);
+			#endif
 			sp_AddColSpr (sp_moviles [gpit], sprite_9_b);
 			sp_AddColSpr (sp_moviles [gpit], sprite_9_c);	
 			en_an_current_frame [gpit] = sprite_9_a;
 		}
 	#else
+		#ifdef MODE_32X
+		sp_player = sp_CreateSpr (sp_MASK_SPRITE, 5, sprite_2_a);
+		#else
 		sp_player = sp_CreateSpr (sp_MASK_SPRITE, 3, sprite_2_a);
+		#endif
 		sp_AddColSpr (sp_player, sprite_2_b);
 		sp_AddColSpr (sp_player, sprite_2_c);
 		p_current_frame = p_next_frame = sprite_2_a;
 		
 		for (gpit = 0; gpit < MAX_ENEMS; gpit ++) {
-			sp_moviles [gpit] = sp_CreateSpr(sp_MASK_SPRITE, 3, sprite_9_a);
+			#ifdef MODE_32X
+				sp_moviles [gpit] = sp_CreateSpr(sp_MASK_SPRITE, 5, sprite_9_a);
+			#else
+				sp_moviles [gpit] = sp_CreateSpr(sp_MASK_SPRITE, 3, sprite_9_a);
+			#endif
 			sp_AddColSpr (sp_moviles [gpit], sprite_9_b);
 			sp_AddColSpr (sp_moviles [gpit], sprite_9_c);	
 			en_an_current_frame [gpit] = en_an_next_frame [gpit] = sprite_9_a;
