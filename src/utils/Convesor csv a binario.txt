@@ -1,0 +1,30 @@
+ESPAÑOL
+-------
+
+Este es un sencillo conversor de archivos con formato CSV (datos separados por coma) a binario.
+
+Uso:
+
+Desde la línea de comandos ejecutar una linea como esta:
+
+csv2bin file.txt newfile.bin
+
+donde:
+   * file.txt es el fichero de datos con formato csv
+   * newfile.bin es el archivo que generaremos con los datos en binario
+   
+   
+ENGLISH
+-------
+
+This is a simple csv to binary file conversor.
+
+Usage: 
+
+csv2bin file.txt newfile.bin
+
+where:
+   * file.txt csv format data file
+   * newfile.bin output binary file
+This is a modded util from MK1 Engine from Mojon Twins
+--Thanks to Nathan for his tools--
